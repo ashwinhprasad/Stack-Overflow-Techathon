@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import CreateCustomUserForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def UserSignup(request):
@@ -29,3 +30,9 @@ def UserSignin(request):
         else:
             return HttpResponse("User Does not Exist")
     return render(request,'user/signin.html',{})
+
+
+login_required(login_url="/user/signin")
+def UserSignout(request):
+    logout(request)
+    return redirect('/user/signin')
