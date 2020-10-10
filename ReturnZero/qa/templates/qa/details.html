@@ -1,7 +1,9 @@
 {% extends "./base.html" %}
   {% block bodyblock %}
     {% if question %}
-      <h1>{{ question.question_name }}</h1><h6>{{ question.asked_by }}</h6>
+
+      <h1 id="question">{{ question.question_name }}</h1>
+      <h6 id="author">by {{ question.asked_by.name }}</h6>
       {% if user.is_authenticated %}
       <form method="POST">
         {% csrf_token %}
@@ -9,8 +11,13 @@
         <button type="submit">Submit</button>
       </form>
       {% endif %}
-      {% for answer in question.answer_ques.all %}
-        <p>{{ answer.answer }}</p>
-      {% endfor %}
+      <h2>Answers</h2>
+
+        {% for answer in question.answer_ques.all %}
+          <div class="container jumbotron">
+            <h4>{{ answer.answer }}</h4>
+          </div>
+        {% endfor %}
+
     {% endif %}
   {% endblock %}

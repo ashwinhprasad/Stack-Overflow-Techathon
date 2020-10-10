@@ -1,6 +1,6 @@
 {% extends "./base.html" %}
   {% block bodyblock %}
-    <h2>Here are some of the Recent QuestionsS</h2>
+    <h2>Here are some of the Recent Questions</h2>
     {% if user.is_authenticated %}
     <form method="post">
       {% csrf_token %}
@@ -9,7 +9,10 @@
       <button type="submit">Ask</button>
     </form>
     {% endif %}
+    <br>
     {% for question in questions %}
-      <a href="qa/details/{{question.id}}"><h3>{{ question.question_name }}</h3></a>
+      <a   href="qa/details/{{question.id}}"><button id="quesbut" type="button"><h3>{{ question.question_name }}</h3></button></a>
+      <br>
+      <br>
     {% endfor %}
   {% endblock %}
