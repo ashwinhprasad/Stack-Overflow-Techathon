@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .forms import CreateCustomUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from qa.models import questions, answers
 
 # Create your views here.
 def UserSignup(request):
@@ -36,3 +37,15 @@ login_required(login_url="/user/signin")
 def UserSignout(request):
     logout(request)
     return redirect('/user/signin')
+
+
+login_required(login_url="/user/signin")
+def UserProfile(request):
+    context = {}
+    profile = request.user
+    context['profile'] = profile
+    try:
+        context['questions'] = questions.objects.filter(asked_by=profile)
+    except:
+        context['questions'] = None
+    return render(request,"user/profile.html",context)

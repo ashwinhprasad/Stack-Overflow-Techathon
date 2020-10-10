@@ -1,0 +1,12 @@
+{% extends "./base.html" %}
+  {% block bodyblock %}
+  <h1>User Profile</h1>
+    {{ profile.name }}
+    {{ profile.email }}
+    {% if questions %}
+      <h3>Asked Questions</h3>
+      {% for question in  questions.all %}
+        <a href="/qa/details/{{question.id}}"><h5>{{ question.question_name }}</h5></a>
+      {% endfor %}
+    {% endif %}
+  {% endblock %}
