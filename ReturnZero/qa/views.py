@@ -3,6 +3,10 @@ from .models import questions, answers
 # Create your views here.
 def Home(request):
     ques = questions.objects.all().order_by('uploaded_at')
+    if request.method == "POST":
+        question = request.POST['question']
+        que_obj = questions(question_name=question,asked_by=request.user)
+        que_obj.save()
     return render(request,"qa/homepage.html",{"questions":ques})
 
 

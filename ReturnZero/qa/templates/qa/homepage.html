@@ -1,6 +1,14 @@
 {% extends "./base.html" %}
   {% block bodyblock %}
     <h1>Welcome</h1>
+    {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      <label for="question">Ask a Question</label>
+      <input type="text" name="question">
+      <button type="submit">Ask</button>
+    </form>
+    {% endif %}
     {% for question in questions %}
       <a href="qa/details/{{question.id}}"><h3>{{ question.question_name }}</h3></a>
     {% endfor %}
